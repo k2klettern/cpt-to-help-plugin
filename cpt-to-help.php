@@ -9,12 +9,11 @@ Version: 0.0.1
 Text Domain: ctptohelp
 */
 
+use Zeidan\CptToHelp\Controller\CptToHelp;
+
 define('CPTTEXDOMAIN', 'ctptohelp');
 define('CPTBASEDIR', plugin_dir_url(__FILE__));
 
-foreach (glob(__DIR__ . "/inc/class-*.php") as $filename)
-	require_once($filename);
-
-$cptt = new cptToHelp();
+$cptt = new CptToHelp();
 
 register_activation_hook( __FILE__, array( $cptt, 'cptToHelpInstall' ) );

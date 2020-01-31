@@ -1,11 +1,10 @@
 <?php
+declare(strict_types=1);
 
-if ( !defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace Zeidan\CptToHelp\Controller;
 
-if(!class_exists('cptToHelp')) {
-	class cptToHelp {
+if(!class_exists('CptToHelp')) {
+	class CptToHelp {
 
 		private $adminPages;
 
