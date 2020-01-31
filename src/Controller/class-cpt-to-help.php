@@ -13,17 +13,18 @@ if(!class_exists('CptToHelp')) {
 			$this->adminPages = get_option( 'cpt_help_admin_pages' );
 		}
 
-		public function initHooks() {
-			add_action( 'init', array( $this, 'helpPostType' ) );
-			add_action( 'admin_init', array( $this, 'onLoadPlugin' ));
-			add_action( 'admin_init', array( $this, 'loadAllTabs'));
+		private function initHooks(): void
+        {
+			add_action( 'init', [ $this, 'helpPostType' ] );
+			add_action( 'admin_init', [ $this, 'onLoadPlugin' ] );
+			add_action( 'admin_init', [ $this, 'loadAllTabs' ] );
 			add_action( 'add_meta_boxes', function () {
-				add_meta_box( 'helperOptions', __( 'Select where to Show this Tab', CPTTEXDOMAIN ), array(
+				add_meta_box( 'helperOptions', __( 'Select where to Show this Tab', CPTTEXDOMAIN ), [
 					$this,
 					'optionsCheckMetaBox'
-				), 'helper', 'advance' );
+				], 'helper', 'advance' );
 			}, 9 );
-			add_action( 'save_post', array( $this, 'saveMetaBox' ) );
+			add_action( 'save_post', [ $this, 'saveMetaBox' ] );
 			add_action( 'edit_form_after_title', function () {
 				global $post, $wp_meta_boxes;
 				do_meta_boxes( get_current_screen(), 'advance', $post );
@@ -34,7 +35,7 @@ if(!class_exists('CptToHelp')) {
 
 		public function loadAllTabs() {
 		    $posts = get_posts(array(
-		       'post_type' => 'helper',
+		        'post_type' => 'helper',
                 'numberposts' => -1,
                 'post_status' => 'publish',
             ));
@@ -83,6 +84,7 @@ if(!class_exists('CptToHelp')) {
 			    'menu_position' => 100,
 			    'exclude_from_search' => true,
 			    'show_in_nav_menus' => false,
+			    'show_in_rest' => true,
 			    'rewrite' => false
 		    );
 			register_post_type( 'helper', $args);
